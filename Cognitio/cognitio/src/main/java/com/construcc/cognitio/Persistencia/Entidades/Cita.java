@@ -5,7 +5,7 @@
 package com.construcc.cognitio.Persistencia.Entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 /**
  *
  * @author clsuarezp
@@ -34,11 +31,10 @@ public class Cita implements Serializable {
     private Integer idcita;
     @Basic(optional = false)
     @Column(name = "fecha")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecha;
+    private Timestamp fecha;
     @Column(name = "observacion")
     private String observacion;
-    
+
     @ManyToOne()
     @JoinColumn(name = "cliente_idcliente")
     private Cliente clienteidCliente;
@@ -62,14 +58,12 @@ public class Cita implements Serializable {
         this.idcita = idcita;
     }
 
-    public Cita(Integer idcita, Date fecha) {
+    public Cita(Integer idcita, Timestamp fecha) {
         this.idcita = idcita;
         this.fecha = fecha;
     }
 
-    
-
-    public Cita(Date fecha, String observacion, Cliente clienteidCliente, Estadocita estadoCitaidestadoCita,
+    public Cita(Timestamp fecha, String observacion, Cliente clienteidCliente, Estadocita estadoCitaidestadoCita,
             Tipocita tipoCitaidtipoCita, Usuario usuarioIdusuario) {
         this.fecha = fecha;
         this.observacion = observacion;
@@ -87,11 +81,11 @@ public class Cita implements Serializable {
         this.idcita = idcita;
     }
 
-    public Date getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
@@ -144,12 +138,12 @@ public class Cita implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Cita)) {
             return false;
         }
         Cita other = (Cita) object;
-        if ((this.idcita == null && other.idcita != null) || (this.idcita != null && !this.idcita.equals(other.idcita))) {
+        if ((this.idcita == null && other.idcita != null)
+                || (this.idcita != null && !this.idcita.equals(other.idcita))) {
             return false;
         }
         return true;
@@ -159,5 +153,5 @@ public class Cita implements Serializable {
     public String toString() {
         return "Entidades.Cita[ idcita=" + idcita + " ]";
     }
-    
+
 }
